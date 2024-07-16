@@ -1,9 +1,12 @@
-from langchain.document_loaders import PyPDFLoader, DirectoryLoader, PDFMinerLoader 
-from langchain.text_splitter import RecursiveCharacterTextSplitter 
-from langchain.embeddings import SentenceTransformerEmbeddings 
-from langchain.vectorstores import Chroma 
+from langchain_community.document_loaders import PyPDFLoader, DirectoryLoader, PDFMinerLoader
+from langchain_community.embeddings import SentenceTransformerEmbeddings
+from langchain_community.vectorstores import Chroma
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+import chromadb
+from chromadb.config import Settings
+from constants import CHROMA_SETTINGS, client
 import os 
-from constants import CHROMA_SETTINGS
+
 
 persist_directory = "db"
 
@@ -22,10 +25,7 @@ def main():
     embeddings = SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
     #create vector store here
     print(f"Creating embeddings. May take some minutes...")
-    db = Chroma.from_documents(texts, embeddings, persist_directory=persist_directory, client_settings=CHROMA_SETTINGS)
-    db.persist()
-    db=None 
-
+    db = client
     print(f"Ingestion complete! You can now run privateGPT.py to query your documents")
 
 if __name__ == "__main__":

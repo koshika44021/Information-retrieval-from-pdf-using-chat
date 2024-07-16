@@ -57,7 +57,6 @@ def llm_pipeline():
         do_sample = True,
         temperature = 0.3,
         top_p= 0.95,
-        device=device
     )
     local_llm = HuggingFacePipeline(pipeline=pipe)
     return local_llm
@@ -167,5 +166,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
